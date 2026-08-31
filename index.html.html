@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f7f9">
+<title>Taxi Log</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--text:#15171a;--muted:#73777d;--line:#e3e5e8;--accent:#111;--danger:#d93025}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 14px calc(12px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:21px;font-weight:800}.topbtn{width:42px;height:38px;border:1px solid var(--line);background:#fff;border-radius:11px;font-size:21px}
+main{max-width:720px;margin:auto;padding:14px 12px 90px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.03)}
+.row{display:flex;align-items:center;gap:8px}.between{justify-content:space-between}.center{justify-content:center}
+h2,h3,p{margin-top:0}.monthTitle{font-size:20px;font-weight:800}.navbtn{width:42px;height:40px;border:1px solid var(--line);background:#f7f7f8;border-radius:11px;font-size:22px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{text-align:center;font-size:12px;color:var(--muted);padding:5px 0}
+.day{min-height:82px;border:1px solid var(--line);background:#fafafa;border-radius:10px;padding:6px;text-align:left;color:#111;font:inherit;overflow:hidden}
+.day.empty{border:0;background:transparent}.day.today{outline:2px solid #111;outline-offset:-2px}.day.work{background:#f0f4f8}.num{font-weight:800;font-size:14px}.sale{font-size:9.5px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:5px}.workmark{font-size:9px;margin-top:4px;color:#111;font-weight:700}
+label{display:block;color:var(--muted);font-size:13px;font-weight:600;margin:13px 0 6px}
+input{width:100%;padding:12px;border:1px solid #cfd2d6;border-radius:11px;background:#fff;font:inherit;font-size:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f7f7f8;border-radius:12px;padding:12px}.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}.stat strong{font-size:20px}
+.primary,.secondary,.danger{border:0;border-radius:11px;padding:12px 15px;font:inherit;font-weight:700}.primary{background:#111;color:#fff}.secondary{background:#eceef1;color:#111}.danger{background:#fff0ef;color:var(--danger)}
+.actions{display:flex;gap:8px;margin-top:16px}.actions button{flex:1}
+.menu{position:fixed;right:12px;top:62px;z-index:30;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 8px 30px rgba(0,0,0,.16)}.menu button{display:block;width:220px;text-align:left;margin:3px;border:0;background:#fff;padding:12px;border-radius:9px;font:inherit}
+.hidden{display:none!important}.back{margin-bottom:10px}
+.progress{height:10px;background:#e8eaed;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:#111;width:0}
+.note{font-size:13px;color:var(--muted);line-height:1.5}
+.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{border-bottom:1px solid var(--line);padding:9px 4px;text-align:right}.table th:first-child,.table td:first-child{text-align:left}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);display:flex;padding:7px 8px calc(7px + env(safe-area-inset-bottom));z-index:25}.bottom button{flex:1;border:0;background:transparent;font:inherit;color:#555;padding:5px}.bottom button.active{color:#111;font-weight:800}
+</style>
+</head>
+<body>
+<header><div class="logo">🚕 Taxi Log</div><button class="topbtn" id="menuBtn">△</button></header>
+
+<main>
+<section id="calendarPage">
+ <div class="card">
+  <div class="row between"><button class="navbtn" id="prevMonth">‹</button><div class="monthTitle" id="calendarTitle"></div><button class="navbtn" id="nextMonth">›</button></div>
+ </div>
+ <div class="card"><div class="calendar" id="calendar"></div></div>
+</section>
+
+<section id="editPage" class="hidden">
+ <div class="row back"><button class="secondary" id="backCalendar">← カレンダー</button></div>
+ <div class="card">
+  <h2 id="editTitle">日報</h2>
+  <div class="grid2">
+   <div><label>出勤時間</label><input type="time" id="start"></div>
+   <div><label>退勤時間</label><input type="time" id="end"></div>
+  </div>
+  <div class="grid2">
+   <div><label>税込売上</label><input type="number" inputmode="decimal" id="gross" placeholder="例 73600"></div>
+   <div><label>税抜売上</label><input type="number" inputmode="decimal" id="net" placeholder="例 67750"></div>
+  </div>
+  <label>歩合率（変更可能）</label><input type="number" inputmode="decimal" id="rate" step="0.1">
+  <div class="statgrid" style="margin-top:12px"><div class="stat"><small>税込売上</small><strong id="showGross">¥0</strong></div><div class="stat"><small>税抜売上</small><strong id="showNet">¥0</strong></div><div class="stat"><small>歩合率</small><strong id="showRate">50%</strong></div><div class="stat"><small>総支給</small><strong id="showPay">¥0</strong></div></div>
+  <div class="actions"><button class="primary" id="saveBtn">保存</button><button class="danger" id="deleteBtn">削除</button></div>
+ </div>
+</section>
+
+<section id="monthPage" class="hidden">
+ <div class="card"><div class="row between"><button class="navbtn" id="prevMonth2">‹</button><h2 id="monthTitle">月間集計</h2><button class="navbtn" id="nextMonth2">›</button></div></div>
+ <div class="card"><div class="statgrid"><div class="stat"><small>税込売上</small><strong id="mGross">¥0</strong></div><div class="stat"><small>税抜売上</small><strong id="mNet">¥0</strong></div><div class="stat"><small>総支給</small><strong id="mPay">¥0</strong></div><div class="stat"><small>出勤日数</small><strong id="mDays">0日</strong></div></div></div>
+ <div class="card"><label>月間目標</label><input type="number" inputmode="decimal" id="goal" placeholder="目標を入力"><p id="goalText" class="note" style="margin-top:10px">目標は未設定です。</p><div class="progress"><div id="goalBar"></div></div></div>
+</section>
+
+<section id="yearPage" class="hidden">
+ <div class="card"><h2 id="yearTitle">年間集計</h2><div class="statgrid"><div class="stat"><small>税込売上</small><strong id="yGross">¥0</strong></div><div class="stat"><small>税抜売上</small><strong id="yNet">¥0</strong></div><div class="stat"><small>総支給</small><strong id="yPay">¥0</strong></div><div class="stat"><small>出勤日数</small><strong id="yDays">0日</strong></div></div></div>
+ <div class="card"><table class="table"><thead><tr><th>月</th><th>税込</th><th>税抜</th><th>総支給</th></tr></thead><tbody id="yearRows"></tbody></table></div>
+</section>
+
+<section id="settingsPage" class="hidden">
+ <div class="card"><h2>設定</h2><label>初期歩合率</label><input type="number" id="defaultRate" inputmode="decimal" step="0.1"><p class="note" style="margin-top:10px">新しく日報を作るときの初期値です。保存済みの日報の歩合率はそのまま残ります。</p><button class="primary" id="settingsSave">保存</button></div>
+</section>
+</main>
+
+<nav class="bottom"><button id="navCal" class="active">📅<br>カレンダー</button><button id="navMonth">📊<br>月間</button></nav>
+<div id="menu" class="menu hidden"><button id="menuMonth">📊 月間集計</button><button id="menuYear">📈 年間集計</button><button id="menuSettings">⚙️ 設定</button></div>
+
+<script>
+const KEY='taxilog1';
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){db=null}
+if(!db)db={reports:{},goals:{},defaultRate:50};
+if(!db.reports)db.reports={}; if(!db.goals)db.goals={}; if(db.defaultRate==null)db.defaultRate=50;
+let viewDate=new Date(); viewDate.setDate(1); let selectedKey=null;
+
+const $=id=>document.getElementById(id);
+const money=n=>'¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
+const pad=n=>String(n).padStart(2,'0');
+const key=(y,m,d)=>`${y}-${pad(m)}-${pad(d)}`;
+const saveDB=()=>localStorage.setItem(KEY,JSON.stringify(db));
+
+function show(page){
+ ['calendarPage','editPage','monthPage','yearPage','settingsPage'].forEach(id=>$(id).classList.add('hidden'));
+ $(page).classList.remove('hidden');
+ $('menu').classList.add('hidden');
+ if(page==='calendarPage'){renderCalendar();$('navCal').classList.add('active');$('navMonth').classList.remove('active')}
+ else {$('navCal').classList.remove('active');$('navMonth').classList.toggle('active',page==='monthPage')}
+ if(page==='monthPage')renderMonth();
+ if(page==='yearPage')renderYear();
+ if(page==='settingsPage')$('defaultRate').value=db.defaultRate;
+}
+
+function renderCalendar(){
+ const y=viewDate.getFullYear(),m=viewDate.getMonth()+1;
+ $('calendarTitle').textContent=`${y}年${m}月`;
+ const cal=$('calendar'); cal.innerHTML='';
+ ['日','月','火','水','木','金','土'].forEach(x=>{const e=document.createElement('div');e.className='dow';e.textContent=x;cal.appendChild(e)});
+ const first=new Date(y,m-1,1).getDay(), days=new Date(y,m,0).getDate();
+ for(let i=0;i<first;i++){const e=document.createElement('div');e.className='day empty';cal.appendChild(e)}
+ const today=new Date(), tk=key(today.getFullYear(),today.getMonth()+1,today.getDate());
+ for(let d=1;d<=days;d++){
+   const k=key(y,m,d),r=db.reports[k]; const b=document.createElement('button');b.className='day'+(r?' work':'')+(k===tk?' today':'');
+   let s=`<div class="num">${d}</div>`;
+   if(r)s+=`<div class="sale">税込 ${money(r.gross)}</div><div class="sale">税抜 ${money(r.net)}</div><div class="workmark">出勤 • 総支給 ${money(r.pay)}</div>`;
+   b.innerHTML=s;b.onclick=()=>openEdit(k);cal.appendChild(b);
+ }
+}
+
+function openEdit(k){
+ selectedKey=k; const r=db.reports[k]||{};
+ $('editTitle').textContent=`${k} 日報`;
+ $('start').value=r.start||'';$('end').value=r.end||'';
+ $('gross').value=r.gross??'';$('net').value=r.net??'';
+ $('rate').value=r.rate??db.defaultRate;
+ $('deleteBtn').style.visibility=db.reports[k]?'visible':'hidden';
+ updatePreview();show('editPage');
+}
+function updatePreview(){
+ const g=Number($('gross').value)||0,n=Number($('net').value)||0,rt=Number($('rate').value)||0;
+ $('showGross').textContent=money(g);$('showNet').textContent=money(n);$('showRate').textContent=rt+'%';$('showPay').textContent=money(n*rt/100);
+}
+['gross','net','rate'].forEach(id=>$(id).addEventListener('input',updatePreview));
+
+$('saveBtn').onclick=()=>{
+ const g=Number($('gross').value)||0,n=Number($('net').value)||0,rt=Number($('rate').value)||0;
+ db.reports[selectedKey]={start:$('start').value,end:$('end').value,gross:g,net:n,rate:rt,pay:Math.round(n*rt/100)};
+ saveDB();show('calendarPage');
+};
+$('deleteBtn').onclick=()=>{
+ if(!db.reports[selectedKey])return;
+ if(confirm(`${selectedKey}の日報を削除しますか？`)){delete db.reports[selectedKey];saveDB();show('calendarPage')}
+};
+$('backCalendar').onclick=()=>show('calendarPage');
+$('prevMonth').onclick=$('prevMonth2').onclick=()=>{viewDate.setMonth(viewDate.getMonth()-1); if(!$('monthPage').classList.contains('hidden'))renderMonth(); else renderCalendar()};
+$('nextMonth').onclick=$('nextMonth2').onclick=()=>{viewDate.setMonth(viewDate.getMonth()+1); if(!$('monthPage').classList.contains('hidden'))renderMonth(); else renderCalendar()};
+
+function monthStats(y,m){
+ const prefix=`${y}-${pad(m)}`,s={g:0,n:0,p:0,days:0};
+ Object.entries(db.reports).forEach(([k,r])=>{if(k.startsWith(prefix)){s.g+=Number(r.gross)||0;s.n+=Number(r.net)||0;s.p+=Number(r.pay)||0;s.days++}});
+ return s;
+}
+function renderMonth(){
+ const y=viewDate.getFullYear(),m=viewDate.getMonth()+1,s=monthStats(y,m),mk=`${y}-${pad(m)}`;
+ $('monthTitle').textContent=`${y}年${m}月`;
+ $('mGross').textContent=money(s.g);$('mNet').textContent=money(s.n);$('mPay').textContent=money(s.p);$('mDays').textContent=s.days+'日';
+ $('goal').value=db.goals[mk]||'';
+ const goal=Number(db.goals[mk])||0;
+ if(!goal){$('goalText').textContent='目標は未設定です。';$('goalBar').style.width='0%'}
+ else if(s.g>=goal){$('goalText').textContent=`目標達成！ ${money(s.g-goal)}円上回っています。`;$('goalBar').style.width='100%'}
+ else {$('goalText').textContent=`目標まで残り ${money(goal-s.g)}。`;$('goalBar').style.width=Math.min(100,s.g/goal*100)+'%'}
+}
+$('goal').oninput=()=>{const mk=`${viewDate.getFullYear()}-${pad(viewDate.getMonth()+1)}`;db.goals[mk]=Number($('goal').value)||0;saveDB();renderMonth()};
+
+function renderYear(){
+ const y=viewDate.getFullYear();$('yearTitle').textContent=`${y}年 年間集計`;
+ let t={g:0,n:0,p:0,days:0},html='';
+ for(let m=1;m<=12;m++){const s=monthStats(y,m);t.g+=s.g;t.n+=s.n;t.p+=s.p;t.days+=s.days;html+=`<tr><td>${m}月</td><td>${money(s.g)}</td><td>${money(s.n)}</td><td>${money(s.p)}</td></tr>`}
+ $('yGross').textContent=money(t.g);$('yNet').textContent=money(t.n);$('yPay').textContent=money(t.p);$('yDays').textContent=t.days+'日';$('yearRows').innerHTML=html;
+}
+
+$('settingsSave').onclick=()=>{db.defaultRate=Number($('defaultRate').value)||50;saveDB();alert('設定を保存しました')};
+$('menuBtn').onclick=()=>{$('menu').classList.toggle('hidden')};
+$('menuMonth').onclick=()=>show('monthPage');$('menuYear').onclick=()=>show('yearPage');$('menuSettings').onclick=()=>show('settingsPage');
+$('navCal').onclick=()=>show('calendarPage');$('navMonth').onclick=()=>show('monthPage');
+
+renderCalendar();
+</script>
+</body></html>
