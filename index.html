@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f6f7f9">
+<meta name="theme-color" content="#f5f6f8">
 <title>Taxi Log</title>
 
 <style>
@@ -16,7 +16,7 @@
   --muted:#73777d;
   --line:#e3e5e8;
   --accent:#111;
-  --danger:#d93025
+  --danger:#d93025;
 }
 
 *{box-sizing:border-box}
@@ -25,7 +25,7 @@ body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
 
 header{
@@ -38,12 +38,12 @@ header{
   padding:12px 14px calc(12px + env(safe-area-inset-top));
   display:flex;
   align-items:center;
-  justify-content:space-between
+  justify-content:space-between;
 }
 
 .logo{
   font-size:21px;
-  font-weight:800
+  font-weight:800;
 }
 
 .topbtn{
@@ -52,13 +52,13 @@ header{
   border:1px solid var(--line);
   background:#fff;
   border-radius:11px;
-  font-size:21px
+  font-size:21px;
 }
 
 main{
   max-width:720px;
   margin:auto;
-  padding:14px 12px 90px
+  padding:14px 12px 100px;
 }
 
 .card{
@@ -67,26 +67,30 @@ main{
   border-radius:18px;
   padding:16px;
   margin-bottom:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,.03)
+  box-shadow:0 2px 10px rgba(0,0,0,.03);
 }
 
 .row{
   display:flex;
   align-items:center;
-  gap:8px
+  gap:8px;
 }
 
 .between{
-  justify-content:space-between
+  justify-content:space-between;
+}
+
+.center{
+  justify-content:center;
 }
 
 h2,h3,p{
-  margin-top:0
+  margin-top:0;
 }
 
 .monthTitle{
   font-size:20px;
-  font-weight:800
+  font-weight:800;
 }
 
 .navbtn{
@@ -95,20 +99,20 @@ h2,h3,p{
   border:1px solid var(--line);
   background:#f7f7f8;
   border-radius:11px;
-  font-size:22px
+  font-size:22px;
 }
 
 .calendar{
   display:grid;
   grid-template-columns:repeat(7,1fr);
-  gap:5px
+  gap:5px;
 }
 
 .dow{
   text-align:center;
   font-size:12px;
   color:var(--muted);
-  padding:5px 0
+  padding:5px 0;
 }
 
 .day{
@@ -120,26 +124,30 @@ h2,h3,p{
   text-align:left;
   color:#111;
   font:inherit;
-  overflow:hidden
+  overflow:hidden;
 }
 
 .day.empty{
   border:0;
-  background:transparent
+  background:transparent;
 }
 
 .day.today{
   outline:2px solid #111;
-  outline-offset:-2px
+  outline-offset:-2px;
 }
 
 .day.work{
-  background:#f0f4f8
+  background:#f0f4f8;
+}
+
+.day.boarding{
+  background:#f4f1ff;
 }
 
 .num{
   font-weight:800;
-  font-size:14px
+  font-size:14px;
 }
 
 .sale{
@@ -148,14 +156,21 @@ h2,h3,p{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  margin-top:5px
+  margin-top:5px;
 }
 
 .workmark{
   font-size:9px;
   margin-top:4px;
   color:#111;
-  font-weight:700
+  font-weight:700;
+}
+
+.boardmark{
+  font-size:9px;
+  margin-top:4px;
+  color:#5b3bb5;
+  font-weight:800;
 }
 
 label{
@@ -163,79 +178,88 @@ label{
   color:var(--muted);
   font-size:13px;
   font-weight:600;
-  margin:13px 0 6px
+  margin:13px 0 6px;
 }
 
-input{
+input,
+select{
   width:100%;
   padding:12px;
   border:1px solid #cfd2d6;
   border-radius:11px;
   background:#fff;
   font:inherit;
-  font-size:16px
+  font-size:16px;
 }
 
 .grid2{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px
+  gap:10px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
 }
 
 .statgrid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px
+  gap:10px;
 }
 
 .stat{
   background:#f7f7f8;
   border-radius:12px;
-  padding:12px
+  padding:12px;
 }
 
 .stat small{
   display:block;
   color:var(--muted);
   font-size:12px;
-  margin-bottom:4px
+  margin-bottom:4px;
 }
 
 .stat strong{
-  font-size:20px
+  font-size:20px;
 }
 
-.primary,.secondary,.danger{
+.primary,
+.secondary,
+.danger{
   border:0;
   border-radius:11px;
   padding:12px 15px;
   font:inherit;
-  font-weight:700
+  font-weight:700;
 }
 
 .primary{
   background:#111;
-  color:#fff
+  color:#fff;
 }
 
 .secondary{
   background:#eceef1;
-  color:#111
+  color:#111;
 }
 
 .danger{
   background:#fff0ef;
-  color:var(--danger)
+  color:var(--danger);
 }
 
 .actions{
   display:flex;
   gap:8px;
-  margin-top:16px
+  margin-top:16px;
 }
 
 .actions button{
-  flex:1
+  flex:1;
 }
 
 .menu{
@@ -247,7 +271,7 @@ input{
   border:1px solid var(--line);
   border-radius:14px;
   padding:8px;
-  box-shadow:0 8px 30px rgba(0,0,0,.16)
+  box-shadow:0 8px 30px rgba(0,0,0,.16);
 }
 
 .menu button{
@@ -259,116 +283,176 @@ input{
   background:#fff;
   padding:12px;
   border-radius:9px;
-  font:inherit
+  font:inherit;
 }
 
 .hidden{
-  display:none!important
+  display:none!important;
 }
 
 .back{
-  margin-bottom:10px
+  margin-bottom:10px;
 }
 
 .progress{
   height:10px;
   background:#e8eaed;
   border-radius:20px;
-  overflow:hidden
+  overflow:hidden;
 }
 
 .progress>div{
   height:100%;
   background:#111;
-  width:0
+  width:0;
 }
 
 .note{
   font-size:13px;
   color:var(--muted);
-  line-height:1.5
+  line-height:1.5;
 }
 
 .table{
   width:100%;
   border-collapse:collapse;
-  font-size:13px
+  font-size:13px;
 }
 
-.table th,.table td{
+.table th,
+.table td{
   border-bottom:1px solid var(--line);
   padding:9px 4px;
-  text-align:right
+  text-align:right;
 }
 
 .table th:first-child,
 .table td:first-child{
-  text-align:left
+  text-align:left;
 }
 
-.ride-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:14px
+/* 乗り込み */
+
+.boardingCalendar .day{
+  min-height:95px;
 }
 
-.ride-table th{
-  color:var(--muted);
-  font-size:12px;
-  font-weight:600;
-  padding:8px 4px;
-  border-bottom:1px solid var(--line);
-  text-align:left
-}
-
-.ride-table td{
-  padding:7px 4px;
-  border-bottom:1px solid var(--line);
-  vertical-align:middle
-}
-
-.ride-time{
-  width:65px;
-  font-weight:700;
-  white-space:nowrap
-}
-
-.ride-area{
-  width:auto
-}
-
-.ride-count{
-  width:70px
-}
-
-.ride-input{
-  width:100%;
-  padding:9px 7px;
-  font-size:14px
-}
-
-.ride-total{
-  text-align:center;
-  font-size:26px;
+.boardingCount{
+  font-size:15px;
   font-weight:800;
-  margin:8px 0
+  margin-top:5px;
 }
 
-.week-table{
-  width:100%;
-  border-collapse:collapse
+.boardingArea{
+  font-size:9px;
+  color:#5b3bb5;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-top:3px;
 }
 
-.week-table th,
-.week-table td{
-  padding:10px 5px;
+.boardingList{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.boardingRow{
+  display:grid;
+  grid-template-columns:58px 1fr 90px;
+  gap:8px;
+  align-items:center;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fafafa;
+}
+
+.timeLabel{
+  font-weight:800;
+  font-size:14px;
+}
+
+.boardingRow input{
+  padding:9px;
+  font-size:14px;
+}
+
+.countBox{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.countBox input{
+  text-align:center;
+  min-width:0;
+}
+
+.plusBtn{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:9px;
+  background:#111;
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+}
+
+.minusBtn{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:9px;
+  background:#e8eaed;
+  color:#111;
+  font-size:20px;
+  font-weight:800;
+}
+
+.totalBox{
+  background:#f4f1ff;
+  border-radius:14px;
+  padding:15px;
+  text-align:center;
+  margin-bottom:12px;
+}
+
+.totalBox small{
+  display:block;
+  color:var(--muted);
+}
+
+.totalBox strong{
+  display:block;
+  font-size:30px;
+  margin-top:3px;
+}
+
+/* 集計 */
+
+.summaryBlock{
+  margin-top:15px;
+}
+
+.summaryTitle{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+
+.rankRow{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 4px;
   border-bottom:1px solid var(--line);
-  text-align:left
+  font-size:13px;
 }
 
-.week-table th:last-child,
-.week-table td:last-child{
-  text-align:right
+.rankRow strong{
+  font-size:15px;
 }
 
 .bottom{
@@ -380,7 +464,7 @@ input{
   border-top:1px solid var(--line);
   display:flex;
   padding:7px 8px calc(7px + env(safe-area-inset-bottom));
-  z-index:25
+  z-index:25;
 }
 
 .bottom button{
@@ -389,12 +473,28 @@ input{
   background:transparent;
   font:inherit;
   color:#555;
-  padding:5px
+  padding:5px;
 }
 
 .bottom button.active{
   color:#111;
-  font-weight:800
+  font-weight:800;
+}
+
+@media(max-width:430px){
+  .boardingRow{
+    grid-template-columns:52px 1fr 82px;
+  }
+
+  .plusBtn,
+  .minusBtn{
+    width:32px;
+    height:36px;
+  }
+
+  .boardingRow{
+    gap:5px;
+  }
 }
 </style>
 </head>
@@ -408,7 +508,9 @@ input{
 
 <main>
 
-<!-- ==================== 日報カレンダー ==================== -->
+<!-- =========================
+     日報カレンダー
+========================= -->
 
 <section id="calendarPage">
 
@@ -427,7 +529,9 @@ input{
 </section>
 
 
-<!-- ==================== 日報入力 ==================== -->
+<!-- =========================
+     日報入力
+========================= -->
 
 <section id="editPage" class="hidden">
 
@@ -529,7 +633,9 @@ input{
 </section>
 
 
-<!-- ==================== 月間集計 ==================== -->
+<!-- =========================
+     月間集計
+========================= -->
 
 <section id="monthPage" class="hidden">
 
@@ -592,7 +698,11 @@ input{
       placeholder="目標を入力"
     >
 
-    <p id="goalText" class="note" style="margin-top:10px">
+    <p
+      id="goalText"
+      class="note"
+      style="margin-top:10px"
+    >
       目標は未設定です。
     </p>
 
@@ -605,27 +715,17 @@ input{
 </section>
 
 
-<!-- ==================== 年間集計 ==================== -->
+<!-- =========================
+     年間集計
+========================= -->
 
 <section id="yearPage" class="hidden">
 
   <div class="card">
 
-    <div class="row between">
-
-      <button class="navbtn" id="prevYear">
-        ‹
-      </button>
-
-      <h2 id="yearTitle">
-        年間集計
-      </h2>
-
-      <button class="navbtn" id="nextYear">
-        ›
-      </button>
-
-    </div>
+    <h2 id="yearTitle">
+      年間集計
+    </h2>
 
     <div class="statgrid">
 
@@ -675,21 +775,23 @@ input{
 </section>
 
 
-<!-- ==================== 乗り込みカレンダー ==================== -->
+<!-- =========================
+     乗り込みカレンダー
+========================= -->
 
-<section id="rideCalendarPage" class="hidden">
+<section id="boardingPage" class="hidden">
 
   <div class="card">
 
     <div class="row between">
 
-      <button class="navbtn" id="prevRideMonth">
+      <button class="navbtn" id="prevBoardingMonth">
         ‹
       </button>
 
-      <div class="monthTitle" id="rideCalendarTitle"></div>
+      <div class="monthTitle" id="boardingTitle"></div>
 
-      <button class="navbtn" id="nextRideMonth">
+      <button class="navbtn" id="nextBoardingMonth">
         ›
       </button>
 
@@ -697,41 +799,78 @@ input{
 
   </div>
 
-  <div class="card">
+  <div class="card boardingCalendar">
 
-    <div class="calendar" id="rideCalendar"></div>
+    <div class="calendar" id="boardingCalendar"></div>
 
   </div>
 
   <div class="card">
 
-    <h2>曜日別累計</h2>
+    <div class="statgrid">
 
-    <table class="week-table">
+      <div class="stat">
+        <small>今月の乗り込み</small>
+        <strong id="boardingMonthTotal">0回</strong>
+      </div>
 
-      <thead>
-        <tr>
-          <th>曜日</th>
-          <th>乗り込み回数</th>
-        </tr>
-      </thead>
+      <div class="stat">
+        <small>乗り込み日数</small>
+        <strong id="boardingMonthDays">0日</strong>
+      </div>
 
-      <tbody id="weekdayRows"></tbody>
+    </div>
 
-    </table>
+  </div>
+
+  <div class="card">
+
+    <h3>乗り込み集計</h3>
+
+    <div class="summaryBlock">
+
+      <div class="summaryTitle">
+        曜日別
+      </div>
+
+      <div id="weekdaySummary"></div>
+
+    </div>
+
+    <div class="summaryBlock">
+
+      <div class="summaryTitle">
+        時間別
+      </div>
+
+      <div id="hourSummary"></div>
+
+    </div>
+
+    <div class="summaryBlock">
+
+      <div class="summaryTitle">
+        エリア別
+      </div>
+
+      <div id="areaSummary"></div>
+
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- ==================== 乗り込み入力 ==================== -->
+<!-- =========================
+     乗り込み入力
+========================= -->
 
-<section id="rideEditPage" class="hidden">
+<section id="boardingEditPage" class="hidden">
 
   <div class="row back">
 
-    <button class="secondary" id="backRideCalendar">
+    <button class="secondary" id="backBoarding">
       ← 乗り込みカレンダー
     </button>
 
@@ -739,33 +878,29 @@ input{
 
   <div class="card">
 
-    <h2 id="rideEditTitle">乗り込み</h2>
+    <h2 id="boardingEditTitle">
+      乗り込み
+    </h2>
 
-    <div class="ride-total">
-      合計 <span id="rideTotal">0</span> 回
+    <div class="totalBox">
+
+      <small>この日の乗り込み合計</small>
+
+      <strong id="boardingDayTotal">
+        0回
+      </strong>
+
     </div>
 
-    <table class="ride-table">
-
-      <thead>
-        <tr>
-          <th>時間</th>
-          <th>エリア</th>
-          <th>回数</th>
-        </tr>
-      </thead>
-
-      <tbody id="rideRows"></tbody>
-
-    </table>
+    <div class="boardingList" id="boardingList"></div>
 
     <div class="actions">
 
-      <button class="primary" id="saveRideBtn">
+      <button class="primary" id="boardingSaveBtn">
         保存
       </button>
 
-      <button class="danger" id="clearRideBtn">
+      <button class="danger" id="boardingClearBtn">
         この日のデータを削除
       </button>
 
@@ -776,7 +911,9 @@ input{
 </section>
 
 
-<!-- ==================== 設定 ==================== -->
+<!-- =========================
+     設定
+========================= -->
 
 <section id="settingsPage" class="hidden">
 
@@ -793,7 +930,10 @@ input{
       step="0.1"
     >
 
-    <p class="note" style="margin-top:10px">
+    <p
+      class="note"
+      style="margin-top:10px"
+    >
       新しく日報を作るときの初期値です。
       保存済みの日報の歩合率はそのまま残ります。
     </p>
@@ -809,7 +949,9 @@ input{
 </main>
 
 
-<!-- ==================== 下部ナビ ==================== -->
+<!-- =========================
+     下部ナビ
+========================= -->
 
 <nav class="bottom">
 
@@ -821,10 +963,16 @@ input{
     📊<br>月間
   </button>
 
+  <button id="navBoarding">
+    🚕<br>乗り込み
+  </button>
+
 </nav>
 
 
-<!-- ==================== メニュー ==================== -->
+<!-- =========================
+     メニュー
+========================= -->
 
 <div id="menu" class="menu hidden">
 
@@ -836,7 +984,7 @@ input{
     📈 年間集計
   </button>
 
-  <button id="menuRide">
+  <button id="menuBoarding">
     🚕 乗り込みカレンダー
   </button>
 
@@ -849,34 +997,28 @@ input{
 
 <script>
 
+/* =========================
+   データ
+========================= */
+
 const KEY='taxilog1';
 
 let db;
 
 try{
-
-  db=JSON.parse(
-    localStorage.getItem(KEY)||'null'
-  );
-
+  db=JSON.parse(localStorage.getItem(KEY)||'null');
 }catch(e){
-
   db=null;
-
 }
 
-
 if(!db){
-
   db={
     reports:{},
     goals:{},
-    rides:{},
+    boardings:{},
     defaultRate:50
   };
-
 }
-
 
 if(!db.reports){
   db.reports={};
@@ -886,58 +1028,47 @@ if(!db.goals){
   db.goals={};
 }
 
-if(!db.rides){
-  db.rides={};
+if(!db.boardings){
+  db.boardings={};
 }
 
 if(db.defaultRate==null){
   db.defaultRate=50;
 }
 
-
 let viewDate=new Date();
-
 viewDate.setDate(1);
 
-let rideViewDate=new Date();
-
-rideViewDate.setDate(1);
-
 let selectedKey=null;
+let selectedBoardingKey=null;
 
-let selectedRideKey=null;
 
+/* =========================
+   共通
+========================= */
 
-const $=id=>
-  document.getElementById(id);
-
+const $=id=>document.getElementById(id);
 
 const money=n=>{
-  return '¥'+
-    Math.round(Number(n)||0)
-      .toLocaleString('ja-JP');
+  return '¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
 };
-
 
 const pad=n=>{
   return String(n).padStart(2,'0');
 };
 
-
 const key=(y,m,d)=>{
   return `${y}-${pad(m)}-${pad(d)}`;
 };
 
-
 const saveDB=()=>{
-  localStorage.setItem(
-    KEY,
-    JSON.stringify(db)
-  );
+  localStorage.setItem(KEY,JSON.stringify(db));
 };
 
 
-/* ==================== ページ切り替え ==================== */
+/* =========================
+   画面切り替え
+========================= */
 
 function show(page){
 
@@ -946,75 +1077,61 @@ function show(page){
     'editPage',
     'monthPage',
     'yearPage',
-    'rideCalendarPage',
-    'rideEditPage',
+    'boardingPage',
+    'boardingEditPage',
     'settingsPage'
   ].forEach(id=>{
     $(id).classList.add('hidden');
   });
 
-
   $(page).classList.remove('hidden');
 
   $('menu').classList.add('hidden');
 
+  $('navCal').classList.remove('active');
+  $('navMonth').classList.remove('active');
+  $('navBoarding').classList.remove('active');
+
 
   if(page==='calendarPage'){
-
     renderCalendar();
-
     $('navCal').classList.add('active');
-    $('navMonth').classList.remove('active');
-
-  }else{
-
-    $('navCal').classList.remove('active');
-
-    $('navMonth').classList.toggle(
-      'active',
-      page==='monthPage'
-    );
-
   }
-
 
   if(page==='monthPage'){
     renderMonth();
+    $('navMonth').classList.add('active');
   }
 
   if(page==='yearPage'){
     renderYear();
   }
 
-  if(page==='rideCalendarPage'){
-    renderRideCalendar();
+  if(page==='boardingPage'){
+    renderBoardingCalendar();
+    $('navBoarding').classList.add('active');
   }
 
   if(page==='settingsPage'){
-    $('defaultRate').value=
-      db.defaultRate;
+    $('defaultRate').value=db.defaultRate;
   }
 
 }
 
 
-/* ==================== 日報カレンダー ==================== */
+/* =========================
+   日報カレンダー
+========================= */
 
 function renderCalendar(){
 
-  const y=
-    viewDate.getFullYear();
-
-  const m=
-    viewDate.getMonth()+1;
-
+  const y=viewDate.getFullYear();
+  const m=viewDate.getMonth()+1;
 
   $('calendarTitle').textContent=
     `${y}年${m}月`;
 
-
-  const cal=
-    $('calendar');
+  const cal=$('calendar');
 
   cal.innerHTML='';
 
@@ -1029,8 +1146,7 @@ function renderCalendar(){
     '土'
   ].forEach(x=>{
 
-    const e=
-      document.createElement('div');
+    const e=document.createElement('div');
 
     e.className='dow';
 
@@ -1050,8 +1166,7 @@ function renderCalendar(){
 
   for(let i=0;i<first;i++){
 
-    const e=
-      document.createElement('div');
+    const e=document.createElement('div');
 
     e.className='day empty';
 
@@ -1060,33 +1175,30 @@ function renderCalendar(){
   }
 
 
-  const today=
-    new Date();
+  const today=new Date();
 
-  const tk=
-    key(
-      today.getFullYear(),
-      today.getMonth()+1,
-      today.getDate()
-    );
+  const tk=key(
+    today.getFullYear(),
+    today.getMonth()+1,
+    today.getDate()
+  );
 
 
   for(let d=1;d<=days;d++){
 
-    const k=
-      key(y,m,d);
+    const k=key(y,m,d);
 
-    const r=
-      db.reports[k];
+    const r=db.reports[k];
 
+    const br=db.boardings[k];
 
-    const b=
-      document.createElement('button');
+    const b=document.createElement('button');
 
     b.className=
       'day'
       +(r?' work':'')
-      +(k===tk?' today':'');
+      +(k===tk?' today':'')
+      +(br&&boardingTotal(br)>0?' boarding':'');
 
 
     let s=
@@ -1103,13 +1215,25 @@ function renderCalendar(){
     }
 
 
-    b.innerHTML=s;
+    if(br){
 
+      const total=boardingTotal(br);
+
+      if(total>0){
+
+        s+=
+          `<div class="boardmark">🚕 乗り込み ${total}回</div>`;
+
+      }
+
+    }
+
+
+    b.innerHTML=s;
 
     b.onclick=()=>{
       openEdit(k);
     };
-
 
     cal.appendChild(b);
 
@@ -1118,19 +1242,19 @@ function renderCalendar(){
 }
 
 
-/* ==================== 日報編集 ==================== */
+/* =========================
+   日報入力
+========================= */
 
 function openEdit(k){
 
   selectedKey=k;
 
-  const r=
-    db.reports[k]||{};
+  const r=db.reports[k]||{};
 
 
   $('editTitle').textContent=
     `${k} 日報`;
-
 
   $('start').value=
     r.start||'';
@@ -1150,8 +1274,8 @@ function openEdit(k){
 
   $('deleteBtn').style.visibility=
     db.reports[k]
-      ?'visible'
-      :'hidden';
+    ?'visible'
+    :'hidden';
 
 
   updatePreview();
@@ -1161,7 +1285,9 @@ function openEdit(k){
 }
 
 
-/* ==================== 日報プレビュー ==================== */
+/* =========================
+   日報プレビュー
+========================= */
 
 function updatePreview(){
 
@@ -1204,7 +1330,9 @@ function updatePreview(){
 });
 
 
-/* ==================== 日報保存 ==================== */
+/* =========================
+   日報保存
+========================= */
 
 $('saveBtn').onclick=()=>{
 
@@ -1230,9 +1358,7 @@ $('saveBtn').onclick=()=>{
 
     rate:rt,
 
-    pay:Math.round(
-      n*rt/100
-    )
+    pay:Math.round(n*rt/100)
 
   };
 
@@ -1244,7 +1370,9 @@ $('saveBtn').onclick=()=>{
 };
 
 
-/* ==================== 日報削除 ==================== */
+/* =========================
+   日報削除
+========================= */
 
 $('deleteBtn').onclick=()=>{
 
@@ -1270,72 +1398,68 @@ $('deleteBtn').onclick=()=>{
 };
 
 
-/* ==================== カレンダーへ戻る ==================== */
+/* =========================
+   カレンダーへ戻る
+========================= */
 
 $('backCalendar').onclick=()=>{
   show('calendarPage');
 };
 
 
-/* ==================== 月移動 ==================== */
+/* =========================
+   月移動
+========================= */
 
-$('prevMonth').onclick=
+function moveMonth(amount){
+
+  viewDate.setMonth(
+    viewDate.getMonth()+amount
+  );
+
+
+  if(
+    !$('monthPage')
+      .classList
+      .contains('hidden')
+  ){
+
+    renderMonth();
+
+  }else{
+
+    renderCalendar();
+
+  }
+
+}
+
+
+$('prevMonth').onclick=()=>{
+  moveMonth(-1);
+};
+
+$('nextMonth').onclick=()=>{
+  moveMonth(1);
+};
+
 $('prevMonth2').onclick=()=>{
-
-  viewDate.setMonth(
-    viewDate.getMonth()-1
-  );
-
-
-  if(
-    !$('monthPage')
-      .classList
-      .contains('hidden')
-  ){
-
-    renderMonth();
-
-  }else{
-
-    renderCalendar();
-
-  }
-
+  moveMonth(-1);
 };
 
-
-$('nextMonth').onclick=
 $('nextMonth2').onclick=()=>{
-
-  viewDate.setMonth(
-    viewDate.getMonth()+1
-  );
-
-
-  if(
-    !$('monthPage')
-      .classList
-      .contains('hidden')
-  ){
-
-    renderMonth();
-
-  }else{
-
-    renderCalendar();
-
-  }
-
+  moveMonth(1);
 };
 
 
-/* ==================== 月間集計 ==================== */
+/* =========================
+   月間集計
+========================= */
 
 function monthStats(y,m){
 
   const prefix=
     `${y}-${pad(m)}`;
-
 
   const s={
     g:0,
@@ -1350,14 +1474,11 @@ function monthStats(y,m){
 
       if(k.startsWith(prefix)){
 
-        s.g+=
-          Number(r.gross)||0;
+        s.g+=Number(r.gross)||0;
 
-        s.n+=
-          Number(r.net)||0;
+        s.n+=Number(r.net)||0;
 
-        s.p+=
-          Number(r.pay)||0;
+        s.p+=Number(r.pay)||0;
 
         s.days++;
 
@@ -1371,7 +1492,9 @@ function monthStats(y,m){
 }
 
 
-/* ==================== 月間画面 ==================== */
+/* =========================
+   月間画面
+========================= */
 
 function renderMonth(){
 
@@ -1435,27 +1558,24 @@ function renderMonth(){
       `目標まで残り ${money(goal-s.g)}。`;
 
     $('goalBar').style.width=
-      Math.min(
-        100,
-        s.g/goal*100
-      )+'%';
+      Math.min(100,s.g/goal*100)+'%';
 
   }
 
 }
 
 
-/* ==================== 月間目標 ==================== */
+/* =========================
+   月間目標保存
+========================= */
 
 $('goal').oninput=()=>{
 
   const mk=
     `${viewDate.getFullYear()}-${pad(viewDate.getMonth()+1)}`;
 
-
   db.goals[mk]=
     Number($('goal').value)||0;
-
 
   saveDB();
 
@@ -1464,7 +1584,9 @@ $('goal').oninput=()=>{
 };
 
 
-/* ==================== 年間集計 ==================== */
+/* =========================
+   年間集計
+========================= */
 
 function renderYear(){
 
@@ -1522,45 +1644,17 @@ function renderYear(){
   $('yDays').textContent=
     t.days+'日';
 
-
   $('yearRows').innerHTML=
     html;
 
 }
 
 
-/* ==================== 年移動 ==================== */
+/* =========================
+   乗り込み
+========================= */
 
-$('prevYear').onclick=()=>{
-
-  viewDate.setFullYear(
-    viewDate.getFullYear()-1
-  );
-
-  renderYear();
-
-};
-
-
-$('nextYear').onclick=()=>{
-
-  viewDate.setFullYear(
-    viewDate.getFullYear()+1
-  );
-
-  renderYear();
-
-};
-
-
-/* ================================================= */
-/* ==================== 乗り込み ==================== */
-/* ================================================= */
-
-
-/* 19:00〜翌5:00 */
-
-const rideTimes=[
+const BOARDING_HOURS=[
   '19:00',
   '20:00',
   '21:00',
@@ -1574,37 +1668,90 @@ const rideTimes=[
   '05:00'
 ];
 
+const WEEKDAYS=[
+  '日',
+  '月',
+  '火',
+  '水',
+  '木',
+  '金',
+  '土'
+];
 
-/* ==================== 乗り込みカレンダー ==================== */
 
-function renderRideCalendar(){
+/* データ形式を整える */
+
+function getBoardingData(k){
+
+  if(!db.boardings[k]){
+    db.boardings[k]={};
+  }
+
+  BOARDING_HOURS.forEach(hour=>{
+
+    if(!db.boardings[k][hour]){
+
+      db.boardings[k][hour]={
+        area:'',
+        count:0
+      };
+
+    }
+
+  });
+
+  return db.boardings[k];
+
+}
+
+
+/* その日の合計 */
+
+function boardingTotal(data){
+
+  if(!data){
+    return 0;
+  }
+
+  let total=0;
+
+  Object.values(data).forEach(v=>{
+
+    if(v){
+      total+=Number(v.count)||0;
+    }
+
+  });
+
+  return total;
+
+}
+
+
+/* =========================
+   乗り込みカレンダー
+========================= */
+
+function renderBoardingCalendar(){
 
   const y=
-    rideViewDate.getFullYear();
+    viewDate.getFullYear();
 
   const m=
-    rideViewDate.getMonth()+1;
+    viewDate.getMonth()+1;
 
 
-  $('rideCalendarTitle').textContent=
+  $('boardingTitle').textContent=
     `${y}年${m}月`;
 
 
   const cal=
-    $('rideCalendar');
+    $('boardingCalendar');
 
   cal.innerHTML='';
 
 
-  [
-    '日',
-    '月',
-    '火',
-    '水',
-    '木',
-    '金',
-    '土'
-  ].forEach(x=>{
+  WEEKDAYS.forEach(x=>{
 
     const e=
       document.createElement('div');
@@ -1637,15 +1784,13 @@ function renderRideCalendar(){
   }
 
 
-  const today=
-    new Date();
+  const today=new Date();
 
-  const tk=
-    key(
-      today.getFullYear(),
-      today.getMonth()+1,
-      today.getDate()
-    );
+  const tk=key(
+    today.getFullYear(),
+    today.getMonth()+1,
+    today.getDate()
+  );
 
 
   for(let d=1;d<=days;d++){
@@ -1653,8 +1798,11 @@ function renderRideCalendar(){
     const k=
       key(y,m,d);
 
-    const r=
-      db.rides[k];
+    const data=
+      db.boardings[k];
+
+    const total=
+      boardingTotal(data);
 
 
     const b=
@@ -1663,41 +1811,51 @@ function renderRideCalendar(){
 
     b.className=
       'day'
-      +(r?' work':'')
+      +(total>0?' boarding':'')
       +(k===tk?' today':'');
 
 
-    let total=0;
-
-
-    if(r){
-
-      Object.values(r)
-        .forEach(item=>{
-          total+=
-            Number(item.count)||0;
-        });
-
-    }
-
-
-    let s=
+    let html=
       `<div class="num">${d}</div>`;
 
 
     if(total>0){
 
-      s+=
-        `<div class="sale">乗り込み ${total}回</div>`;
+      html+=
+        `<div class="boardingCount">${total}回</div>`;
+
+
+      const areas=[];
+
+      Object.values(data).forEach(v=>{
+
+        if(
+          v &&
+          v.area &&
+          Number(v.count)>0 &&
+          !areas.includes(v.area)
+        ){
+          areas.push(v.area);
+        }
+
+      });
+
+
+      if(areas.length){
+
+        html+=
+          `<div class="boardingArea">${areas.join(' / ')}</div>`;
+
+      }
 
     }
 
 
-    b.innerHTML=s;
+    b.innerHTML=html;
 
 
     b.onclick=()=>{
-      openRideEdit(k);
+      openBoardingEdit(k);
     };
 
 
@@ -1706,190 +1864,189 @@ function renderRideCalendar(){
   }
 
 
-  renderWeekdayStats();
+  renderBoardingMonthStats();
 
 }
 
 
-/* ==================== 曜日別累計 ==================== */
+/* =========================
+   乗り込み入力画面
+========================= */
 
-function renderWeekdayStats(){
+function openBoardingEdit(k){
 
-  const totals=[
-    0,0,0,0,0,0,0
-  ];
+  selectedBoardingKey=k;
 
-
-  const y=
-    rideViewDate.getFullYear();
-
-  const m=
-    rideViewDate.getMonth()+1;
-
-
-  Object.entries(db.rides)
-    .forEach(([k,data])=>{
-
-      const parts=
-        k.split('-');
-
-      const ky=
-        Number(parts[0]);
-
-      const km=
-        Number(parts[1]);
-
-      if(
-        ky!==y||
-        km!==m
-      ){
-        return;
-      }
-
-
-      const date=
-        new Date(
-          ky,
-          km-1,
-          Number(parts[2])
-        );
-
-
-      let total=0;
-
-
-      Object.values(data)
-        .forEach(item=>{
-
-          total+=
-            Number(item.count)||0;
-
-        });
-
-
-      totals[date.getDay()]+=total;
-
-    });
-
-
-  const names=[
-    '日曜日',
-    '月曜日',
-    '火曜日',
-    '水曜日',
-    '木曜日',
-    '金曜日',
-    '土曜日'
-  ];
-
-
-  let html='';
-
-
-  for(let i=0;i<7;i++){
-
-    html+=
-      `<tr>`+
-      `<td>${names[i]}</td>`+
-      `<td>${totals[i]}回</td>`+
-      `</tr>`;
-
-  }
-
-
-  $('weekdayRows').innerHTML=
-    html;
-
-}
-
-
-/* ==================== 乗り込み編集 ==================== */
-
-function openRideEdit(k){
-
-  selectedRideKey=k;
-
-
-  $('rideEditTitle').textContent=
+  $('boardingEditTitle').textContent=
     `${k} 乗り込み`;
 
+  renderBoardingInputs();
+
+  show('boardingEditPage');
+
+}
+
+
+/* =========================
+   乗り込み入力
+========================= */
+
+function renderBoardingInputs(){
 
   const data=
-    db.rides[k]||{};
+    getBoardingData(selectedBoardingKey);
+
+  const list=
+    $('boardingList');
+
+  list.innerHTML='';
 
 
-  const rows=
-    $('rideRows');
+  BOARDING_HOURS.forEach(hour=>{
+
+    const v=
+      data[hour]||{
+        area:'',
+        count:0
+      };
 
 
-  rows.innerHTML='';
+    const row=
+      document.createElement('div');
+
+    row.className='boardingRow';
 
 
-  rideTimes.forEach(time=>{
+    const time=
+      document.createElement('div');
 
-    const item=
-      data[time]||{};
+    time.className='timeLabel';
 
-
-    const tr=
-      document.createElement('tr');
-
-
-    tr.innerHTML=
-      `<td class="ride-time">${time}</td>`+
-      `<td class="ride-area">`+
-      `<input class="ride-input ride-area-input" `+
-      `data-time="${time}" `+
-      `value="${escapeHtml(item.area||'')}" `+
-      `placeholder="エリア">`+
-      `</td>`+
-      `<td class="ride-count">`+
-      `<input class="ride-input ride-count-input" `+
-      `data-time="${time}" `+
-      `type="number" `+
-      `inputmode="numeric" `+
-      `min="0" `+
-      `step="1" `+
-      `value="${item.count??''}" `+
-      `placeholder="0">`+
-      `</td>`;
+    time.textContent=
+      hour;
 
 
-    rows.appendChild(tr);
+    const area=
+      document.createElement('input');
+
+    area.type='text';
+
+    area.placeholder='エリア';
+
+    area.value=
+      v.area||'';
+
+
+    area.dataset.hour=hour;
+
+
+    const countBox=
+      document.createElement('div');
+
+    countBox.className='countBox';
+
+
+    const minus=
+      document.createElement('button');
+
+    minus.className='minusBtn';
+
+    minus.type='button';
+
+    minus.textContent='−';
+
+
+    const count=
+      document.createElement('input');
+
+    count.type='number';
+
+    count.inputMode='numeric';
+
+    count.min='0';
+
+    count.value=
+      Number(v.count)||0;
+
+    count.dataset.hour=hour;
+
+    count.className='boardingCountInput';
+
+
+    const plus=
+      document.createElement('button');
+
+    plus.className='plusBtn';
+
+    plus.type='button';
+
+    plus.textContent='+';
+
+
+    plus.onclick=()=>{
+
+      count.value=
+        (Number(count.value)||0)+1;
+
+      updateBoardingDayTotal();
+
+    };
+
+
+    minus.onclick=()=>{
+
+      count.value=
+        Math.max(
+          0,
+          (Number(count.value)||0)-1
+        );
+
+      updateBoardingDayTotal();
+
+    };
+
+
+    count.addEventListener(
+      'input',
+      updateBoardingDayTotal
+    );
+
+
+    countBox.appendChild(minus);
+
+    countBox.appendChild(count);
+
+    countBox.appendChild(plus);
+
+
+    row.appendChild(time);
+
+    row.appendChild(area);
+
+    row.appendChild(countBox);
+
+
+    list.appendChild(row);
 
   });
 
 
-  updateRideTotal();
-
-  show('rideEditPage');
+  updateBoardingDayTotal();
 
 }
 
 
-/* HTML特殊文字対策 */
+/* =========================
+   入力中の合計
+========================= */
 
-function escapeHtml(value){
-
-  return String(value)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
-
-}
-
-
-/* ==================== 乗り込み合計 ==================== */
-
-function updateRideTotal(){
+function updateBoardingDayTotal(){
 
   let total=0;
 
 
   document
-    .querySelectorAll('.ride-count-input')
+    .querySelectorAll('.boardingCountInput')
     .forEach(input=>{
 
       total+=
@@ -1898,176 +2055,370 @@ function updateRideTotal(){
     });
 
 
-  $('rideTotal').textContent=
-    total;
+  $('boardingDayTotal').textContent=
+    total+'回';
 
 }
 
 
-document.addEventListener(
-  'input',
-  e=>{
+/* =========================
+   乗り込み保存
+========================= */
 
-    if(
-      e.target.classList.contains(
-        'ride-count-input'
-      )
-    ){
-
-      updateRideTotal();
-
-    }
-
-  }
-);
-
-
-/* ==================== 乗り込み保存 ==================== */
-
-$('saveRideBtn').onclick=()=>{
+$('boardingSaveBtn').onclick=()=>{
 
   const data={};
 
 
-  rideTimes.forEach(time=>{
+  document
+    .querySelectorAll('.boardingRow')
+    .forEach(row=>{
 
-    const areaInput=
-      document.querySelector(
-        `.ride-area-input[data-time="${time}"]`
-      );
+      const area=
+        row.querySelector('input[type="text"]');
 
-    const countInput=
-      document.querySelector(
-        `.ride-count-input[data-time="${time}"]`
-      );
+      const count=
+        row.querySelector('.boardingCountInput');
 
-
-    const area=
-      areaInput
-        ?areaInput.value.trim()
-        :'';
+      const hour=
+        count.dataset.hour;
 
 
-    const count=
-      countInput
-        ?Number(countInput.value)||0
-        :0;
-
-
-    if(area||count){
-
-      data[time]={
-        area:area,
-        count:count
+      data[hour]={
+        area:area.value.trim(),
+        count:Math.max(
+          0,
+          Number(count.value)||0
+        )
       };
 
-    }
-
-  });
+    });
 
 
-  if(
-    Object.keys(data).length
-  ){
-
-    db.rides[selectedRideKey]=data;
-
-  }else{
-
-    delete db.rides[selectedRideKey];
-
-  }
-
+  db.boardings[selectedBoardingKey]=data;
 
   saveDB();
 
-  show('rideCalendarPage');
+  show('boardingPage');
 
 };
 
 
-/* ==================== 乗り込みデータ削除 ==================== */
+/* =========================
+   乗り込み1日削除
+========================= */
 
-$('clearRideBtn').onclick=()=>{
+$('boardingClearBtn').onclick=()=>{
 
   if(
-    !db.rides[selectedRideKey]
+    !db.boardings[selectedBoardingKey]
   ){
-
-    show('rideCalendarPage');
+    show('boardingPage');
     return;
-
   }
 
 
   if(
     confirm(
-      `${selectedRideKey}の乗り込みデータを削除しますか？`
+      `${selectedBoardingKey}の乗り込みデータを削除しますか？`
     )
   ){
 
-    delete db.rides[selectedRideKey];
+    delete db.boardings[
+      selectedBoardingKey
+    ];
 
     saveDB();
 
-    show('rideCalendarPage');
+    show('boardingPage');
 
   }
 
 };
 
 
-/* ==================== 乗り込みカレンダーへ戻る ==================== */
+/* =========================
+   乗り込みカレンダーへ戻る
+========================= */
 
-$('backRideCalendar').onclick=()=>{
-  show('rideCalendarPage');
+$('backBoarding').onclick=()=>{
+  show('boardingPage');
 };
 
 
-/* ==================== 乗り込み月移動 ==================== */
+/* =========================
+   乗り込み月移動
+========================= */
 
-$('prevRideMonth').onclick=()=>{
+$('prevBoardingMonth').onclick=()=>{
 
-  rideViewDate.setMonth(
-    rideViewDate.getMonth()-1
+  viewDate.setMonth(
+    viewDate.getMonth()-1
   );
 
-  renderRideCalendar();
+  renderBoardingCalendar();
 
 };
 
 
-$('nextRideMonth').onclick=()=>{
+$('nextBoardingMonth').onclick=()=>{
 
-  rideViewDate.setMonth(
-    rideViewDate.getMonth()+1
+  viewDate.setMonth(
+    viewDate.getMonth()+1
   );
 
-  renderRideCalendar();
+  renderBoardingCalendar();
 
 };
 
 
-/* ==================== 設定 ==================== */
+/* =========================
+   乗り込み月間合計
+========================= */
+
+function getBoardingMonthData(y,m){
+
+  const prefix=
+    `${y}-${pad(m)}`;
+
+  let total=0;
+  let days=0;
+
+  Object.entries(db.boardings)
+    .forEach(([k,data])=>{
+
+      if(k.startsWith(prefix)){
+
+        const t=
+          boardingTotal(data);
+
+        if(t>0){
+
+          total+=t;
+
+          days++;
+
+        }
+
+      }
+
+    });
+
+
+  return {
+    total,
+    days
+  };
+
+}
+
+
+/* =========================
+   乗り込み集計
+========================= */
+
+function getBoardingSummary(y,m){
+
+  const prefix=
+    `${y}-${pad(m)}`;
+
+  const weekday={
+    日:0,
+    月:0,
+    火:0,
+    水:0,
+    木:0,
+    金:0,
+    土:0
+  };
+
+  const hour={};
+
+  const area={};
+
+
+  BOARDING_HOURS.forEach(h=>{
+    hour[h]=0;
+  });
+
+
+  Object.entries(db.boardings)
+    .forEach(([k,data])=>{
+
+      if(!k.startsWith(prefix)){
+        return;
+      }
+
+
+      const parts=k.split('-');
+
+      const ky=
+        Number(parts[0]);
+
+      const km=
+        Number(parts[1]);
+
+      const kd=
+        Number(parts[2]);
+
+
+      const date=
+        new Date(ky,km-1,kd);
+
+
+      const wd=
+        WEEKDAYS[date.getDay()];
+
+
+      Object.entries(data||{})
+        .forEach(([h,v])=>{
+
+          const count=
+            Number(v&&v.count)||0;
+
+
+          if(count<=0){
+            return;
+          }
+
+
+          weekday[wd]+=count;
+
+          if(hour[h]==null){
+            hour[h]=0;
+          }
+
+          hour[h]+=count;
+
+
+          const a=
+            (v.area||'未入力').trim() ||
+            '未入力';
+
+
+          if(area[a]==null){
+            area[a]=0;
+          }
+
+          area[a]+=count;
+
+        });
+
+    });
+
+
+  return {
+    weekday,
+    hour,
+    area
+  };
+
+}
+
+
+/* =========================
+   集計表示
+========================= */
+
+function makeRankRows(obj,labelSuffix){
+
+  const entries=
+    Object.entries(obj)
+      .sort((a,b)=>b[1]-a[1]);
+
+
+  if(!entries.length){
+
+    return '<div class="note">まだデータがありません。</div>';
+
+  }
+
+
+  let html='';
+
+
+  entries.forEach(([name,value])=>{
+
+    html+=
+      `<div class="rankRow">`+
+      `<span>${name}</span>`+
+      `<strong>${value}${labelSuffix}</strong>`+
+      `</div>`;
+
+  });
+
+
+  return html;
+
+}
+
+
+function renderBoardingMonthStats(){
+
+  const y=
+    viewDate.getFullYear();
+
+  const m=
+    viewDate.getMonth()+1;
+
+
+  const month=
+    getBoardingMonthData(y,m);
+
+
+  $('boardingMonthTotal').textContent=
+    month.total+'回';
+
+  $('boardingMonthDays').textContent=
+    month.days+'日';
+
+
+  const summary=
+    getBoardingSummary(y,m);
+
+
+  $('weekdaySummary').innerHTML=
+    makeRankRows(
+      summary.weekday,
+      '回'
+    );
+
+
+  $('hourSummary').innerHTML=
+    makeRankRows(
+      summary.hour,
+      '回'
+    );
+
+
+  $('areaSummary').innerHTML=
+    makeRankRows(
+      summary.area,
+      '回'
+    );
+
+}
+
+
+/* =========================
+   設定
+========================= */
 
 $('settingsSave').onclick=()=>{
 
   db.defaultRate=
-    Number(
-      $('defaultRate').value
-    )||50;
-
+    Number($('defaultRate').value)||50;
 
   saveDB();
 
-  alert(
-    '設定を保存しました'
-  );
+  alert('設定を保存しました');
 
 };
 
 
-/* ==================== メニュー ==================== */
+/* =========================
+   メニュー
+========================= */
 
 $('menuBtn').onclick=()=>{
 
@@ -2088,8 +2439,8 @@ $('menuYear').onclick=()=>{
 };
 
 
-$('menuRide').onclick=()=>{
-  show('rideCalendarPage');
+$('menuBoarding').onclick=()=>{
+  show('boardingPage');
 };
 
 
@@ -2098,7 +2449,9 @@ $('menuSettings').onclick=()=>{
 };
 
 
-/* ==================== 下部ナビ ==================== */
+/* =========================
+   下部ナビ
+========================= */
 
 $('navCal').onclick=()=>{
   show('calendarPage');
@@ -2110,7 +2463,14 @@ $('navMonth').onclick=()=>{
 };
 
 
-/* ==================== 初期表示 ==================== */
+$('navBoarding').onclick=()=>{
+  show('boardingPage');
+};
+
+
+/* =========================
+   初期表示
+========================= */
 
 renderCalendar();
 
