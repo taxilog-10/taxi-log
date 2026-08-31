@@ -147,7 +147,15 @@ $('deleteBtn').onclick=()=>{
 $('backCalendar').onclick=()=>show('calendarPage');
 $('prevMonth').onclick=$('prevMonth2').onclick=()=>{viewDate.setMonth(viewDate.getMonth()-1); if(!$('monthPage').classList.contains('hidden'))renderMonth(); else renderCalendar()};
 $('nextMonth').onclick=$('nextMonth2').onclick=()=>{viewDate.setMonth(viewDate.getMonth()+1); if(!$('monthPage').classList.contains('hidden'))renderMonth(); else renderCalendar()};
+$('prevYear').onclick=()=>{
+ viewDate.setFullYear(viewDate.getFullYear()-1);
+ renderYear();
+};
 
+$('nextYear').onclick=()=>{
+ viewDate.setFullYear(viewDate.getFullYear()+1);
+ renderYear();
+};
 function monthStats(y,m){
  const prefix=`${y}-${pad(m)}`,s={g:0,n:0,p:0,days:0};
  Object.entries(db.reports).forEach(([k,r])=>{if(k.startsWith(prefix)){s.g+=Number(r.gross)||0;s.n+=Number(r.net)||0;s.p+=Number(r.pay)||0;s.days++}});
