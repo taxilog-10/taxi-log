@@ -19,9 +19,7 @@
   --danger:#d93025
 }
 
-*{
-  box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -80,10 +78,6 @@ main{
 
 .between{
   justify-content:space-between
-}
-
-.center{
-  justify-content:center
 }
 
 h2,h3,p{
@@ -258,7 +252,7 @@ input{
 
 .menu button{
   display:block;
-  width:220px;
+  width:240px;
   text-align:left;
   margin:3px;
   border:0;
@@ -312,6 +306,71 @@ input{
   text-align:left
 }
 
+.ride-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px
+}
+
+.ride-table th{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600;
+  padding:8px 4px;
+  border-bottom:1px solid var(--line);
+  text-align:left
+}
+
+.ride-table td{
+  padding:7px 4px;
+  border-bottom:1px solid var(--line);
+  vertical-align:middle
+}
+
+.ride-time{
+  width:65px;
+  font-weight:700;
+  white-space:nowrap
+}
+
+.ride-area{
+  width:auto
+}
+
+.ride-count{
+  width:70px
+}
+
+.ride-input{
+  width:100%;
+  padding:9px 7px;
+  font-size:14px
+}
+
+.ride-total{
+  text-align:center;
+  font-size:26px;
+  font-weight:800;
+  margin:8px 0
+}
+
+.week-table{
+  width:100%;
+  border-collapse:collapse
+}
+
+.week-table th,
+.week-table td{
+  padding:10px 5px;
+  border-bottom:1px solid var(--line);
+  text-align:left
+}
+
+.week-table th:last-child,
+.week-table td:last-child{
+  text-align:right
+}
+
 .bottom{
   position:fixed;
   bottom:0;
@@ -349,7 +408,8 @@ input{
 
 <main>
 
-<!-- カレンダー -->
+<!-- ==================== 日報カレンダー ==================== -->
+
 <section id="calendarPage">
 
   <div class="card">
@@ -367,7 +427,8 @@ input{
 </section>
 
 
-<!-- 日報入力 -->
+<!-- ==================== 日報入力 ==================== -->
+
 <section id="editPage" class="hidden">
 
   <div class="row back">
@@ -427,10 +488,7 @@ input{
       step="0.1"
     >
 
-    <div
-      class="statgrid"
-      style="margin-top:12px"
-    >
+    <div class="statgrid" style="margin-top:12px">
 
       <div class="stat">
         <small>税込売上</small>
@@ -471,7 +529,8 @@ input{
 </section>
 
 
-<!-- 月間集計 -->
+<!-- ==================== 月間集計 ==================== -->
+
 <section id="monthPage" class="hidden">
 
   <div class="card">
@@ -533,11 +592,7 @@ input{
       placeholder="目標を入力"
     >
 
-    <p
-      id="goalText"
-      class="note"
-      style="margin-top:10px"
-    >
+    <p id="goalText" class="note" style="margin-top:10px">
       目標は未設定です。
     </p>
 
@@ -550,14 +605,27 @@ input{
 </section>
 
 
-<!-- 年間集計 -->
+<!-- ==================== 年間集計 ==================== -->
+
 <section id="yearPage" class="hidden">
 
   <div class="card">
 
-    <h2 id="yearTitle">
-      年間集計
-    </h2>
+    <div class="row between">
+
+      <button class="navbtn" id="prevYear">
+        ‹
+      </button>
+
+      <h2 id="yearTitle">
+        年間集計
+      </h2>
+
+      <button class="navbtn" id="nextYear">
+        ›
+      </button>
+
+    </div>
 
     <div class="statgrid">
 
@@ -607,7 +675,109 @@ input{
 </section>
 
 
-<!-- 設定 -->
+<!-- ==================== 乗り込みカレンダー ==================== -->
+
+<section id="rideCalendarPage" class="hidden">
+
+  <div class="card">
+
+    <div class="row between">
+
+      <button class="navbtn" id="prevRideMonth">
+        ‹
+      </button>
+
+      <div class="monthTitle" id="rideCalendarTitle"></div>
+
+      <button class="navbtn" id="nextRideMonth">
+        ›
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="calendar" id="rideCalendar"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>曜日別累計</h2>
+
+    <table class="week-table">
+
+      <thead>
+        <tr>
+          <th>曜日</th>
+          <th>乗り込み回数</th>
+        </tr>
+      </thead>
+
+      <tbody id="weekdayRows"></tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- ==================== 乗り込み入力 ==================== -->
+
+<section id="rideEditPage" class="hidden">
+
+  <div class="row back">
+
+    <button class="secondary" id="backRideCalendar">
+      ← 乗り込みカレンダー
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2 id="rideEditTitle">乗り込み</h2>
+
+    <div class="ride-total">
+      合計 <span id="rideTotal">0</span> 回
+    </div>
+
+    <table class="ride-table">
+
+      <thead>
+        <tr>
+          <th>時間</th>
+          <th>エリア</th>
+          <th>回数</th>
+        </tr>
+      </thead>
+
+      <tbody id="rideRows"></tbody>
+
+    </table>
+
+    <div class="actions">
+
+      <button class="primary" id="saveRideBtn">
+        保存
+      </button>
+
+      <button class="danger" id="clearRideBtn">
+        この日のデータを削除
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ==================== 設定 ==================== -->
+
 <section id="settingsPage" class="hidden">
 
   <div class="card">
@@ -623,10 +793,7 @@ input{
       step="0.1"
     >
 
-    <p
-      class="note"
-      style="margin-top:10px"
-    >
+    <p class="note" style="margin-top:10px">
       新しく日報を作るときの初期値です。
       保存済みの日報の歩合率はそのまま残ります。
     </p>
@@ -642,7 +809,8 @@ input{
 </main>
 
 
-<!-- 下部ナビ -->
+<!-- ==================== 下部ナビ ==================== -->
+
 <nav class="bottom">
 
   <button id="navCal" class="active">
@@ -656,7 +824,8 @@ input{
 </nav>
 
 
-<!-- メニュー -->
+<!-- ==================== メニュー ==================== -->
+
 <div id="menu" class="menu hidden">
 
   <button id="menuMonth">
@@ -665,6 +834,10 @@ input{
 
   <button id="menuYear">
     📈 年間集計
+  </button>
+
+  <button id="menuRide">
+    🚕 乗り込みカレンダー
   </button>
 
   <button id="menuSettings">
@@ -681,18 +854,29 @@ const KEY='taxilog1';
 let db;
 
 try{
-  db=JSON.parse(localStorage.getItem(KEY)||'null');
+
+  db=JSON.parse(
+    localStorage.getItem(KEY)||'null'
+  );
+
 }catch(e){
+
   db=null;
+
 }
 
+
 if(!db){
+
   db={
     reports:{},
     goals:{},
+    rides:{},
     defaultRate:50
   };
+
 }
+
 
 if(!db.reports){
   db.reports={};
@@ -700,6 +884,10 @@ if(!db.reports){
 
 if(!db.goals){
   db.goals={};
+}
+
+if(!db.rides){
+  db.rides={};
 }
 
 if(db.defaultRate==null){
@@ -711,29 +899,45 @@ let viewDate=new Date();
 
 viewDate.setDate(1);
 
+let rideViewDate=new Date();
+
+rideViewDate.setDate(1);
+
 let selectedKey=null;
 
+let selectedRideKey=null;
 
-const $=id=>document.getElementById(id);
+
+const $=id=>
+  document.getElementById(id);
+
 
 const money=n=>{
-  return '¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
+  return '¥'+
+    Math.round(Number(n)||0)
+      .toLocaleString('ja-JP');
 };
+
 
 const pad=n=>{
   return String(n).padStart(2,'0');
 };
 
+
 const key=(y,m,d)=>{
   return `${y}-${pad(m)}-${pad(d)}`;
 };
 
+
 const saveDB=()=>{
-  localStorage.setItem(KEY,JSON.stringify(db));
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(db)
+  );
 };
 
 
-/* ページ切り替え */
+/* ==================== ページ切り替え ==================== */
 
 function show(page){
 
@@ -742,10 +946,13 @@ function show(page){
     'editPage',
     'monthPage',
     'yearPage',
+    'rideCalendarPage',
+    'rideEditPage',
     'settingsPage'
   ].forEach(id=>{
     $(id).classList.add('hidden');
   });
+
 
   $(page).classList.remove('hidden');
 
@@ -762,6 +969,7 @@ function show(page){
   }else{
 
     $('navCal').classList.remove('active');
+
     $('navMonth').classList.toggle(
       'active',
       page==='monthPage'
@@ -778,23 +986,35 @@ function show(page){
     renderYear();
   }
 
+  if(page==='rideCalendarPage'){
+    renderRideCalendar();
+  }
+
   if(page==='settingsPage'){
-    $('defaultRate').value=db.defaultRate;
+    $('defaultRate').value=
+      db.defaultRate;
   }
 
 }
 
 
-/* カレンダー */
+/* ==================== 日報カレンダー ==================== */
 
 function renderCalendar(){
 
-  const y=viewDate.getFullYear();
-  const m=viewDate.getMonth()+1;
+  const y=
+    viewDate.getFullYear();
 
-  $('calendarTitle').textContent=`${y}年${m}月`;
+  const m=
+    viewDate.getMonth()+1;
 
-  const cal=$('calendar');
+
+  $('calendarTitle').textContent=
+    `${y}年${m}月`;
+
+
+  const cal=
+    $('calendar');
 
   cal.innerHTML='';
 
@@ -809,7 +1029,8 @@ function renderCalendar(){
     '土'
   ].forEach(x=>{
 
-    const e=document.createElement('div');
+    const e=
+      document.createElement('div');
 
     e.className='dow';
 
@@ -829,7 +1050,8 @@ function renderCalendar(){
 
   for(let i=0;i<first;i++){
 
-    const e=document.createElement('div');
+    const e=
+      document.createElement('div');
 
     e.className='day empty';
 
@@ -838,22 +1060,28 @@ function renderCalendar(){
   }
 
 
-  const today=new Date();
+  const today=
+    new Date();
 
-  const tk=key(
-    today.getFullYear(),
-    today.getMonth()+1,
-    today.getDate()
-  );
+  const tk=
+    key(
+      today.getFullYear(),
+      today.getMonth()+1,
+      today.getDate()
+    );
 
 
   for(let d=1;d<=days;d++){
 
-    const k=key(y,m,d);
+    const k=
+      key(y,m,d);
 
-    const r=db.reports[k];
+    const r=
+      db.reports[k];
 
-    const b=document.createElement('button');
+
+    const b=
+      document.createElement('button');
 
     b.className=
       'day'
@@ -877,9 +1105,11 @@ function renderCalendar(){
 
     b.innerHTML=s;
 
+
     b.onclick=()=>{
       openEdit(k);
     };
+
 
     cal.appendChild(b);
 
@@ -888,17 +1118,19 @@ function renderCalendar(){
 }
 
 
-/* 日報を開く */
+/* ==================== 日報編集 ==================== */
 
 function openEdit(k){
 
   selectedKey=k;
 
-  const r=db.reports[k]||{};
+  const r=
+    db.reports[k]||{};
 
 
   $('editTitle').textContent=
     `${k} 日報`;
+
 
   $('start').value=
     r.start||'';
@@ -918,8 +1150,8 @@ function openEdit(k){
 
   $('deleteBtn').style.visibility=
     db.reports[k]
-    ?'visible'
-    :'hidden';
+      ?'visible'
+      :'hidden';
 
 
   updatePreview();
@@ -929,7 +1161,7 @@ function openEdit(k){
 }
 
 
-/* 日報プレビュー */
+/* ==================== 日報プレビュー ==================== */
 
 function updatePreview(){
 
@@ -958,8 +1190,6 @@ function updatePreview(){
 }
 
 
-/* 入力時にリアルタイム更新 */
-
 [
   'gross',
   'net',
@@ -974,7 +1204,7 @@ function updatePreview(){
 });
 
 
-/* 日報保存 */
+/* ==================== 日報保存 ==================== */
 
 $('saveBtn').onclick=()=>{
 
@@ -1000,7 +1230,9 @@ $('saveBtn').onclick=()=>{
 
     rate:rt,
 
-    pay:Math.round(n*rt/100)
+    pay:Math.round(
+      n*rt/100
+    )
 
   };
 
@@ -1012,7 +1244,7 @@ $('saveBtn').onclick=()=>{
 };
 
 
-/* 日報削除 */
+/* ==================== 日報削除 ==================== */
 
 $('deleteBtn').onclick=()=>{
 
@@ -1038,14 +1270,14 @@ $('deleteBtn').onclick=()=>{
 };
 
 
-/* カレンダーへ戻る */
+/* ==================== カレンダーへ戻る ==================== */
 
 $('backCalendar').onclick=()=>{
   show('calendarPage');
 };
 
 
-/* 月移動 */
+/* ==================== 月移動 ==================== */
 
 $('prevMonth').onclick=
 $('prevMonth2').onclick=()=>{
@@ -1097,12 +1329,13 @@ $('nextMonth2').onclick=()=>{
 };
 
 
-/* 月間集計 */
+/* ==================== 月間集計 ==================== */
 
 function monthStats(y,m){
 
   const prefix=
     `${y}-${pad(m)}`;
+
 
   const s={
     g:0,
@@ -1117,11 +1350,14 @@ function monthStats(y,m){
 
       if(k.startsWith(prefix)){
 
-        s.g+=Number(r.gross)||0;
+        s.g+=
+          Number(r.gross)||0;
 
-        s.n+=Number(r.net)||0;
+        s.n+=
+          Number(r.net)||0;
 
-        s.p+=Number(r.pay)||0;
+        s.p+=
+          Number(r.pay)||0;
 
         s.days++;
 
@@ -1135,7 +1371,7 @@ function monthStats(y,m){
 }
 
 
-/* 月間画面 */
+/* ==================== 月間画面 ==================== */
 
 function renderMonth(){
 
@@ -1199,22 +1435,27 @@ function renderMonth(){
       `目標まで残り ${money(goal-s.g)}。`;
 
     $('goalBar').style.width=
-      Math.min(100,s.g/goal*100)+'%';
+      Math.min(
+        100,
+        s.g/goal*100
+      )+'%';
 
   }
 
 }
 
 
-/* 月間目標保存 */
+/* ==================== 月間目標 ==================== */
 
 $('goal').oninput=()=>{
 
   const mk=
     `${viewDate.getFullYear()}-${pad(viewDate.getMonth()+1)}`;
 
+
   db.goals[mk]=
     Number($('goal').value)||0;
+
 
   saveDB();
 
@@ -1223,7 +1464,7 @@ $('goal').oninput=()=>{
 };
 
 
-/* 年間集計 */
+/* ==================== 年間集計 ==================== */
 
 function renderYear(){
 
@@ -1281,27 +1522,552 @@ function renderYear(){
   $('yDays').textContent=
     t.days+'日';
 
+
   $('yearRows').innerHTML=
     html;
 
 }
 
 
-/* 設定保存 */
+/* ==================== 年移動 ==================== */
 
-$('settingsSave').onclick=()=>{
+$('prevYear').onclick=()=>{
 
-  db.defaultRate=
-    Number($('defaultRate').value)||50;
+  viewDate.setFullYear(
+    viewDate.getFullYear()-1
+  );
 
-  saveDB();
-
-  alert('設定を保存しました');
+  renderYear();
 
 };
 
 
-/* メニュー */
+$('nextYear').onclick=()=>{
+
+  viewDate.setFullYear(
+    viewDate.getFullYear()+1
+  );
+
+  renderYear();
+
+};
+
+
+/* ================================================= */
+/* ==================== 乗り込み ==================== */
+/* ================================================= */
+
+
+/* 19:00〜翌5:00 */
+
+const rideTimes=[
+  '19:00',
+  '20:00',
+  '21:00',
+  '22:00',
+  '23:00',
+  '00:00',
+  '01:00',
+  '02:00',
+  '03:00',
+  '04:00',
+  '05:00'
+];
+
+
+/* ==================== 乗り込みカレンダー ==================== */
+
+function renderRideCalendar(){
+
+  const y=
+    rideViewDate.getFullYear();
+
+  const m=
+    rideViewDate.getMonth()+1;
+
+
+  $('rideCalendarTitle').textContent=
+    `${y}年${m}月`;
+
+
+  const cal=
+    $('rideCalendar');
+
+  cal.innerHTML='';
+
+
+  [
+    '日',
+    '月',
+    '火',
+    '水',
+    '木',
+    '金',
+    '土'
+  ].forEach(x=>{
+
+    const e=
+      document.createElement('div');
+
+    e.className='dow';
+
+    e.textContent=x;
+
+    cal.appendChild(e);
+
+  });
+
+
+  const first=
+    new Date(y,m-1,1).getDay();
+
+  const days=
+    new Date(y,m,0).getDate();
+
+
+  for(let i=0;i<first;i++){
+
+    const e=
+      document.createElement('div');
+
+    e.className='day empty';
+
+    cal.appendChild(e);
+
+  }
+
+
+  const today=
+    new Date();
+
+  const tk=
+    key(
+      today.getFullYear(),
+      today.getMonth()+1,
+      today.getDate()
+    );
+
+
+  for(let d=1;d<=days;d++){
+
+    const k=
+      key(y,m,d);
+
+    const r=
+      db.rides[k];
+
+
+    const b=
+      document.createElement('button');
+
+
+    b.className=
+      'day'
+      +(r?' work':'')
+      +(k===tk?' today':'');
+
+
+    let total=0;
+
+
+    if(r){
+
+      Object.values(r)
+        .forEach(item=>{
+          total+=
+            Number(item.count)||0;
+        });
+
+    }
+
+
+    let s=
+      `<div class="num">${d}</div>`;
+
+
+    if(total>0){
+
+      s+=
+        `<div class="sale">乗り込み ${total}回</div>`;
+
+    }
+
+
+    b.innerHTML=s;
+
+
+    b.onclick=()=>{
+      openRideEdit(k);
+    };
+
+
+    cal.appendChild(b);
+
+  }
+
+
+  renderWeekdayStats();
+
+}
+
+
+/* ==================== 曜日別累計 ==================== */
+
+function renderWeekdayStats(){
+
+  const totals=[
+    0,0,0,0,0,0,0
+  ];
+
+
+  const y=
+    rideViewDate.getFullYear();
+
+  const m=
+    rideViewDate.getMonth()+1;
+
+
+  Object.entries(db.rides)
+    .forEach(([k,data])=>{
+
+      const parts=
+        k.split('-');
+
+      const ky=
+        Number(parts[0]);
+
+      const km=
+        Number(parts[1]);
+
+      if(
+        ky!==y||
+        km!==m
+      ){
+        return;
+      }
+
+
+      const date=
+        new Date(
+          ky,
+          km-1,
+          Number(parts[2])
+        );
+
+
+      let total=0;
+
+
+      Object.values(data)
+        .forEach(item=>{
+
+          total+=
+            Number(item.count)||0;
+
+        });
+
+
+      totals[date.getDay()]+=total;
+
+    });
+
+
+  const names=[
+    '日曜日',
+    '月曜日',
+    '火曜日',
+    '水曜日',
+    '木曜日',
+    '金曜日',
+    '土曜日'
+  ];
+
+
+  let html='';
+
+
+  for(let i=0;i<7;i++){
+
+    html+=
+      `<tr>`+
+      `<td>${names[i]}</td>`+
+      `<td>${totals[i]}回</td>`+
+      `</tr>`;
+
+  }
+
+
+  $('weekdayRows').innerHTML=
+    html;
+
+}
+
+
+/* ==================== 乗り込み編集 ==================== */
+
+function openRideEdit(k){
+
+  selectedRideKey=k;
+
+
+  $('rideEditTitle').textContent=
+    `${k} 乗り込み`;
+
+
+  const data=
+    db.rides[k]||{};
+
+
+  const rows=
+    $('rideRows');
+
+
+  rows.innerHTML='';
+
+
+  rideTimes.forEach(time=>{
+
+    const item=
+      data[time]||{};
+
+
+    const tr=
+      document.createElement('tr');
+
+
+    tr.innerHTML=
+      `<td class="ride-time">${time}</td>`+
+      `<td class="ride-area">`+
+      `<input class="ride-input ride-area-input" `+
+      `data-time="${time}" `+
+      `value="${escapeHtml(item.area||'')}" `+
+      `placeholder="エリア">`+
+      `</td>`+
+      `<td class="ride-count">`+
+      `<input class="ride-input ride-count-input" `+
+      `data-time="${time}" `+
+      `type="number" `+
+      `inputmode="numeric" `+
+      `min="0" `+
+      `step="1" `+
+      `value="${item.count??''}" `+
+      `placeholder="0">`+
+      `</td>`;
+
+
+    rows.appendChild(tr);
+
+  });
+
+
+  updateRideTotal();
+
+  show('rideEditPage');
+
+}
+
+
+/* HTML特殊文字対策 */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+
+}
+
+
+/* ==================== 乗り込み合計 ==================== */
+
+function updateRideTotal(){
+
+  let total=0;
+
+
+  document
+    .querySelectorAll('.ride-count-input')
+    .forEach(input=>{
+
+      total+=
+        Number(input.value)||0;
+
+    });
+
+
+  $('rideTotal').textContent=
+    total;
+
+}
+
+
+document.addEventListener(
+  'input',
+  e=>{
+
+    if(
+      e.target.classList.contains(
+        'ride-count-input'
+      )
+    ){
+
+      updateRideTotal();
+
+    }
+
+  }
+);
+
+
+/* ==================== 乗り込み保存 ==================== */
+
+$('saveRideBtn').onclick=()=>{
+
+  const data={};
+
+
+  rideTimes.forEach(time=>{
+
+    const areaInput=
+      document.querySelector(
+        `.ride-area-input[data-time="${time}"]`
+      );
+
+    const countInput=
+      document.querySelector(
+        `.ride-count-input[data-time="${time}"]`
+      );
+
+
+    const area=
+      areaInput
+        ?areaInput.value.trim()
+        :'';
+
+
+    const count=
+      countInput
+        ?Number(countInput.value)||0
+        :0;
+
+
+    if(area||count){
+
+      data[time]={
+        area:area,
+        count:count
+      };
+
+    }
+
+  });
+
+
+  if(
+    Object.keys(data).length
+  ){
+
+    db.rides[selectedRideKey]=data;
+
+  }else{
+
+    delete db.rides[selectedRideKey];
+
+  }
+
+
+  saveDB();
+
+  show('rideCalendarPage');
+
+};
+
+
+/* ==================== 乗り込みデータ削除 ==================== */
+
+$('clearRideBtn').onclick=()=>{
+
+  if(
+    !db.rides[selectedRideKey]
+  ){
+
+    show('rideCalendarPage');
+    return;
+
+  }
+
+
+  if(
+    confirm(
+      `${selectedRideKey}の乗り込みデータを削除しますか？`
+    )
+  ){
+
+    delete db.rides[selectedRideKey];
+
+    saveDB();
+
+    show('rideCalendarPage');
+
+  }
+
+};
+
+
+/* ==================== 乗り込みカレンダーへ戻る ==================== */
+
+$('backRideCalendar').onclick=()=>{
+  show('rideCalendarPage');
+};
+
+
+/* ==================== 乗り込み月移動 ==================== */
+
+$('prevRideMonth').onclick=()=>{
+
+  rideViewDate.setMonth(
+    rideViewDate.getMonth()-1
+  );
+
+  renderRideCalendar();
+
+};
+
+
+$('nextRideMonth').onclick=()=>{
+
+  rideViewDate.setMonth(
+    rideViewDate.getMonth()+1
+  );
+
+  renderRideCalendar();
+
+};
+
+
+/* ==================== 設定 ==================== */
+
+$('settingsSave').onclick=()=>{
+
+  db.defaultRate=
+    Number(
+      $('defaultRate').value
+    )||50;
+
+
+  saveDB();
+
+  alert(
+    '設定を保存しました'
+  );
+
+};
+
+
+/* ==================== メニュー ==================== */
 
 $('menuBtn').onclick=()=>{
 
@@ -1316,27 +2082,35 @@ $('menuMonth').onclick=()=>{
   show('monthPage');
 };
 
+
 $('menuYear').onclick=()=>{
   show('yearPage');
 };
+
+
+$('menuRide').onclick=()=>{
+  show('rideCalendarPage');
+};
+
 
 $('menuSettings').onclick=()=>{
   show('settingsPage');
 };
 
 
-/* 下部ナビ */
+/* ==================== 下部ナビ ==================== */
 
 $('navCal').onclick=()=>{
   show('calendarPage');
 };
+
 
 $('navMonth').onclick=()=>{
   show('monthPage');
 };
 
 
-/* 初期表示 */
+/* ==================== 初期表示 ==================== */
 
 renderCalendar();
 
